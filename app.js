@@ -4,8 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+
 
 var app = express();
 
@@ -17,7 +16,6 @@ app.engine('hbs', hbs({
   defaultLayout: 'layout',
   layoutsDir: __dirname + '/views/layouts/',
   partialsDir: __dirname + '/views/partials/',
-  errorsDir: __dirname + '/views/errors/'
 }));
 app.set('view engine', 'hbs');
 
@@ -27,8 +25,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// setup router path
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var test = require('./routes/test');
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/test', test);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
