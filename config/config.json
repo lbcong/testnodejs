@@ -1,0 +1,30 @@
+{
+    "development": {
+        "username": "gbkunjicrgdekr",
+        "password": "dbe42e80fed5bdd559df7b45b1537afce8e7aa9bcfc7de9633d15c6be79c4987",
+        "database": "dcbgarmq88aimd",
+        "host": "ec2-174-129-226-232.compute-1.amazonaws.com",
+        "port": 5432,
+        "dialect": "postgres",
+        "dialectOptions": {
+            "ssl": true
+        }
+    },
+    "test": {
+        "username": "gbkunjicrgdekr",
+        "password": "dbe42e80fed5bdd559df7b45b1537afce8e7aa9bcfc7de9633d15c6be79c4987",
+        "database": "dcbgarmq88aimd",
+        "host": "ec2-174-129-226-232.compute-1.amazonaws.com",
+        "dialect": "postgres"
+    },
+    "production": {
+        "username": "gbkunjicrgdekr",
+        "password": "dbe42e80fed5bdd559df7b45b1537afce8e7aa9bcfc7de9633d15c6be79c4987",
+        "database": "dcbgarmq88aimd",
+        "host": "ec2-174-129-226-232.compute-1.amazonaws.com",
+        "dialect": "postgres",
+        "dialectOptions": {
+            "ssl": true
+        }
+    }
+}

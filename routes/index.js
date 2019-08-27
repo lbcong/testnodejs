@@ -1,9 +1,33 @@
 var express = require('express');
 var router = express.Router();
 
+// Require controller modules.
+var categoriesController = require('../controllers/CategoriesController');
+var productsController = require('../controllers/ProductsController');
+// gen database
+router.get('/sync', function (req, res, next) {
+    var model = require("../models");
+    model.sequelize.sync().then(() => {
+        res.send("database complete");
+    });
+
+});
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'index'});
+    categoriesController.getAll()
+        .then(
+            data => {
+                res.locals.categories = data;
+                return productsController.getTrending();
+            }
+        ).then(data => {
+            res.locals.trendinproducts = data;
+            res.render('index', {title: 'index'});
+        }
+    )
+        .catch(error => next(error));
+
 });
 
 router.get('/:page', function (req, res, next) {
@@ -12,6 +36,7 @@ router.get('/:page', function (req, res, next) {
             'single-blog': 'Blog Details',
             'blog': 'Our Blog',
             'category': 'Shop Category',
+            'products': 'Shop Category',
             'checkout': 'Product Checkout',
             'confirmation': 'Order Confirmation',
             'contact': 'Contact Us',
@@ -21,7 +46,9 @@ router.get('/:page', function (req, res, next) {
             'tracking-order': 'Order Tracking'
         }
     ;
-    res.render(page, {banner: banners[page], title: page});
+    res.locals.banner = banners[page];
+    res.locals.title = page;
+    next();
 });
 
 router.get('/blog', function (req, res, next) {

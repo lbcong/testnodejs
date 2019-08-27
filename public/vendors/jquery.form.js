@@ -568,7 +568,7 @@ $.fn.ajaxSubmit = function(options) {
             }
             else if (e == SERVER_ABORT && xhr) {
                 xhr.abort('server abort');
-                deferred.reject(xhr, 'error.hbs', 'server abort');
+                deferred.reject(xhr, 'error', 'server abort');
                 return;
             }
 
@@ -656,7 +656,7 @@ $.fn.ajaxSubmit = function(options) {
             }
             catch (err) {
                 log('error caught: ',err);
-                status = 'error.hbs';
+                status = 'error';
                 xhr.error = errMsg = (err || status);
             }
 
@@ -666,7 +666,7 @@ $.fn.ajaxSubmit = function(options) {
             }
 
             if (xhr.status) { // we've set xhr.status
-                status = (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) ? 'success' : 'error.hbs';
+                status = (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) ? 'success' : 'error';
             }
 
             // ordering of these callbacks/triggers is odd, but that's how $.ajax does it
@@ -682,7 +682,7 @@ $.fn.ajaxSubmit = function(options) {
                     errMsg = xhr.statusText;
                 if (s.error)
                     s.error.call(s.context, xhr, status, errMsg);
-                deferred.reject(xhr, 'error.hbs', errMsg);
+                deferred.reject(xhr, 'error', errMsg);
                 if (g)
                     $.event.trigger("ajaxError", [xhr, s, errMsg]);
             }
