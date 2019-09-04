@@ -34,7 +34,14 @@ router.get('/', function (req, res, next) {
 
 router.get('/:id', function (req, res, next) {
     let id = req.params.id;
-    res.send('respond with a resource');
+    res.locals.banner = 'Shop Single';
+    productsController.getById(id)
+        .then(
+            data => {
+                res.locals.product = data;
+                res.render('single-product', {title: 'single-product'});
+            })
+        .catch(error => next(error));
 });
 
 module.exports = router;

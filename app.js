@@ -7,7 +7,8 @@ var logger = require('morgan');
 
 
 var app = express();
-
+//helper
+var helper = require('./helper/helper');
 // view engine setup
 var hbs = require('express-handlebars');
 app.set('views', path.join(__dirname, 'views'));
@@ -16,6 +17,10 @@ app.engine('hbs', hbs({
   defaultLayout: 'layout',
   layoutsDir: __dirname + '/views/layouts/',
   partialsDir: __dirname + '/views/partials/',
+  helpers: {
+    createStarList: helper.createStarList,
+    createStarVote: helper.createStarVote
+  }
 }));
 app.set('view engine', 'hbs');
 
