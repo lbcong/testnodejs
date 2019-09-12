@@ -1,7 +1,8 @@
 var models = require('../models');
 var products = models.Product;
 var controller = {};
-
+var sequelize = require('sequelize');
+var Op = sequelize.Op;
 controller.getTrending = () => {
     return new Promise((resolve, reject) => {
         products.findAll({
@@ -17,13 +18,36 @@ controller.getTrending = () => {
 
 };
 
-controller.getAll = () => {
-    return new Promise((resolve, reject) => {
-        products.findAll({
-                order: [['overallReview', 'DESC']],
-                include: [{model: models.Category}],
-                attributes: ['id', 'name', 'imagepath', 'summary', 'price']
+controller.getAll = (query) => {
+    var options = {
+        order: [['overallReview', 'DESC']],
+        include: [{model: models.Category}],
+        attributes: ['id', 'name', 'imagepath', 'summary', 'price'],
+        where: {
+            price: {
+                [Op.gte]: query.min,
+                [Op.lte]: query.max
             }
+
+        }
+    };
+    if (query.category > 0) {
+        options.where.categoryId = query.category;
+    }
+    if (query.color > 0) {
+        options.include.push({
+            model: models.ProductColor,
+            attributes: ['id'],
+            where: {colorId: query.color}
+        });
+    }
+    if (query.brand > 0) {
+        options.where.brandId = query.brand;
+    }
+
+
+    return new Promise((resolve, reject) => {
+        products.findAll(options
         ).then(
             data => resolve(data)
         ).catch(error => reject(new Error(error)));
@@ -51,7 +75,7 @@ controller.getById = (id) => {
         products.findOne({
                 where: {id: id},
                 include: [{model: models.Category}],
-                attributes: ['id', 'name', 'imagepath', 'summary', 'price', 'availability', 'description','overallReview','reviewCount']
+                attributes: ['id', 'name', 'imagepath', 'summary', 'price', 'availability', 'description', 'overallReview', 'reviewCount']
             }
         ).then(
             data => {
@@ -91,7 +115,7 @@ controller.getById = (id) => {
                         item.rating == i
                     )).length);
                 }
-                product.stars =stars;
+                product.stars = stars;
             }
         ).then(
             data => resolve(product)

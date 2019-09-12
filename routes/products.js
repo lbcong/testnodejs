@@ -8,21 +8,27 @@ var brandsController = require('../controllers/BrandsController');
 var colorsController = require('../controllers/ColorsController');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
+    if(req.query.min == null || isNaN(req.query.min)){
+        req.query.min =0;
+    }
+    if(req.query.max == null || isNaN(req.query.max)){
+        req.query.max =100;
+    }
     categoriesController.getAll()
         .then(
             data => {
                 res.locals.categories = data;
-                return brandsController.getAll();
+                return brandsController.getAll(req.query);
             })
         .then(
             data => {
                 res.locals.brands = data;
-                return colorsController.getAll();
+                return colorsController.getAll(req.query);
             })
         .then(
             data => {
                 res.locals.colors = data;
-                return productsController.getAll();
+                return productsController.getAll(req.query);
             })
         .then(
             data => {
