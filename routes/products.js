@@ -8,6 +8,7 @@ var brandsController = require('../controllers/BrandsController');
 var colorsController = require('../controllers/ColorsController');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
+
     if(req.query.category == null || isNaN(req.query.category)){
         req.query.category =0;
     }
@@ -17,6 +18,7 @@ router.get('/', function (req, res, next) {
     if(req.query.color == null || isNaN(req.query.color)){
         req.query.color =0;
     }
+
     if(req.query.min == null || isNaN(req.query.min)){
         req.query.min =0;
     }
