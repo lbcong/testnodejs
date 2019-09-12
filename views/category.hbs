@@ -29,9 +29,12 @@
                             <form action="#">
                                 <ul>
                                     {{#each categories}}
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="men"
-                                                                       name="brand"><label
-                                                for="men">{{name}}<span> ({{Products.length}})</span></label>
+                                        <li class="filter-list"><input class="pixel-radio" type="radio"
+                                                                       id="category{{id}}"
+                                                                       name="category"><label
+                                                for="category{{id}}"
+                                                onclick="selectParam('category',{{id}},true)">{{name}}
+                                            <span> ({{Products.length}})</span></label>
                                         </li>
                                     {{/each}}
                                 </ul>
@@ -46,9 +49,10 @@
                         <form action="#">
                             <ul>
                                 {{#each brands}}
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="apple"
+                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="brand{{id}}"
                                                                    name="brand"><label
-                                            for="apple">{{name}}<span>({{Products.length}})</span></label></li>
+                                            onclick="selectParam('brand',{{id}})" for="brand{{id}}">{{name}}
+                                        <span>({{Products.length}})</span></label></li>
 
                                 {{/each}}
 
@@ -59,8 +63,10 @@
                         <div class="head">Color</div>
                         <form action="#">
                             <ul>{{#each colors}}
-                                <li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label
-                                        for="black">{{name}}<span>({{ProductColors.length}})</span></label></li>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="color{{id}}"
+                                                               name="color"><label
+                                        onclick="selectParam('color',{{id}})" for="color{{id}}">{{name}}
+                                    <span>({{ProductColors.length}})</span></label></li>
                             {{/each}}
 
                             </ul>
@@ -290,3 +296,6 @@
 </section>
 <!-- ================ Subscribe section end ================= -->
 
+<script>
+
+</script>
