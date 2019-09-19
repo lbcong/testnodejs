@@ -15,7 +15,7 @@ router.get('/sync', function (req, res, next) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    categoriesController.getAll()
+    categoriesController.getAll(req.query)
         .then(
             data => {
                 res.locals.categories = data;

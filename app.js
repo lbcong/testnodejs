@@ -11,6 +11,7 @@ var app = express();
 var helper = require('./helper/helper');
 // view engine setup
 var hbs = require('express-handlebars');
+var paginateHelper = require('express-handlebars-paginate');
 app.set('views', path.join(__dirname, 'views'));
 app.engine('hbs', hbs({
   extname: 'hbs',
@@ -19,7 +20,8 @@ app.engine('hbs', hbs({
   partialsDir: __dirname + '/views/partials/',
   helpers: {
     createStarList: helper.createStarList,
-    createStarVote: helper.createStarVote
+    createStarVote: helper.createStarVote,
+    createPagination: paginateHelper.createPagination
   }
 }));
 app.set('view engine', 'hbs');
