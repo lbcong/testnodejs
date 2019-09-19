@@ -25,7 +25,19 @@ router.get('/', function (req, res, next) {
     if(req.query.max == null || isNaN(req.query.max)){
         req.query.max =100;
     }
-    categoriesController.getAll()
+    if(req.query.limit == null || isNaN(req.query.limit)){
+        req.query.limit =9;
+    }
+    if(req.query.page == null || isNaN(req.query.page)){
+        req.query.page =1;
+    }
+    if(req.query.search == null||req.query.search.trim()==""){
+        req.query.sort ='name';
+    }
+    if(req.query.sort == null){
+        req.query.sort ='name';
+    }
+    categoriesController.getAll(req.query)
         .then(
             data => {
                 res.locals.categories = data;
@@ -43,7 +55,12 @@ router.get('/', function (req, res, next) {
             })
         .then(
             data => {
-                res.locals.products = data;
+                res.locals.products = data.rows;
+                res.locals.pagination={
+                    page: parseInt(req.query.page),
+                    limit: parseInt(req.query.limit),
+                    totalRows: data.count
+                };
                 res.render('category', {title: 'category'});
             })
         .catch(error => next(error));

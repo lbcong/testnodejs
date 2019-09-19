@@ -8,8 +8,8 @@ controller.getTrending = () => {
         products.findAll({
                 order: [['overallReview', 'DESC']],
                 limit: 8,
-                include: [{model: models.Category}],
-                attributes: ['id', 'name', 'imagepath', 'summary', 'price']
+                include: [{model: models.Category, required: true}],
+                attributes: ['id', 'name', 'imagepath', 'summary', 'price','categoryId'],
             }
         ).then(
             data => resolve(data)
@@ -22,7 +22,7 @@ controller.getAll = (query) => {
     var options = {
         order: [['overallReview', 'DESC']],
         include: [{model: models.Category}],
-        attributes: ['id', 'name', 'imagepath', 'summary', 'price'],
+        attributes: ['id', 'name', 'imagepath', 'summary', 'price','categoryId'],
         where: {
             price: {
                 [Op.gte]: query.min,
@@ -33,6 +33,38 @@ controller.getAll = (query) => {
     };
     if (query.category > 0) {
         options.where.categoryId = query.category;
+    }
+    if (query.limit > 0) {
+        options.limit = query.limit;
+        options.offset = query.limit * (query.page - 1);
+    }
+    if (query.search != null && query.search != "") {
+        options.where.name={
+            [Op.iLike]: `%${query.search}%`
+        };
+    }
+    if (query.sort) {
+        switch (query.sort) {
+            case "name":
+                options.order = [
+                    ['name', 'ASC']
+                ];
+                break;
+            case "price":
+                options.order = [
+                    ['price', 'ASC']
+                ];
+                break;
+            case "overallReview":
+                options.order = [
+                    ['overallReview', 'DESC']
+                ];
+                break;
+            default:
+                options.order = [
+                    ['name', 'ASC']
+                ];
+        }
     }
     if (query.color > 0) {
         options.include.push({
@@ -47,7 +79,7 @@ controller.getAll = (query) => {
 
 
     return new Promise((resolve, reject) => {
-        products.findAll(options
+        products.findAndCountAll(options
         ).then(
             data => resolve(data)
         ).catch(error => reject(new Error(error)));
@@ -60,7 +92,7 @@ controller.getRelative = () => {
         products.findAll({
                 order: [['overallReview', 'DESC']],
                 include: [{model: models.Category}],
-                attributes: ['id', 'name', 'imagepath', 'summary', 'price']
+                attributes: ['id', 'name', 'imagepath', 'summary', 'price','categoryId'],
             }
         ).then(
             data => resolve(data)
