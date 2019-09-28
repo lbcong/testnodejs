@@ -107,7 +107,8 @@ controller.getById = (id) => {
         products.findOne({
                 where: {id: id},
                 include: [{model: models.Category}],
-                attributes: ['id', 'name', 'imagepath', 'summary', 'price', 'availability', 'description', 'overallReview', 'reviewCount']
+                attributes: ['id', 'name', 'imagepath', 'summary', 'price', 'availability', 'description', 'overallReview', 'reviewCount',
+                'thumbnailPath']
             }
         ).then(
             data => {
