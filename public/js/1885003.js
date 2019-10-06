@@ -60,9 +60,21 @@ $(document).ready(function () {
                 }
             });
         });
+
+    $('#closebtn').hide();
     }
 );
 
+function showReply(parentCommentId, fullname) {
+    $('#closebtn').show();
+    $('#reply').html('reply: ' + fullname);
+    $('#parentCommentId').val(parentCommentId);
+}
+function removeReply() {
+    $('#closebtn').hide();
+    $('#reply').html('');
+    $('#parentCommentId').val('');
+}
 // bat su kien them param vao url
 function selectParam(key, value, reset = false) {
     if (reset) {

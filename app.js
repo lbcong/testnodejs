@@ -63,6 +63,7 @@ var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
 var categoriesRouter = require('./routes/categories');
 var cartRouter = require('./routes/cart');
+var commentRouter = require('./routes/comment');
 var test = require('./routes/test');
 
 app.use('/', indexRouter);
@@ -70,6 +71,7 @@ app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/categories', categoriesRouter);
 app.use('/carts', cartRouter);
+app.use('/comments', commentRouter);
 app.use('/test', test);
 
 
