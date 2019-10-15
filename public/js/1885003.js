@@ -61,20 +61,68 @@ $(document).ready(function () {
             });
         });
 
-    $('#closebtn').hide();
+        $('#closebtn').hide();
+        // rating
+        let rating = $('#rating').val();
+        showStars(rating);
+
+        $('#starList i').on('click', function () {
+
+            let rating = getRating(this);
+            $('#rating').val(rating);
+            showStars(rating);
+
+        });
+
+        $('#starList i').on('mouseover', function () {
+            let rating = getRating(this);
+            showStars(rating);
+
+        })
+        $('#starList i').on('mouseout', function () {
+            let rating = $('#rating').val();
+            showStars(rating);
+
+        })
     }
 );
+
+function getRating(star) {
+    let stars = $('#starList i');
+    let i = 0;
+    for (i = 0; i < 5; i++) {
+        if ($(stars[i]).get(0) == star) {
+            return (i + 1);
+        }
+    }
+    return i;
+}
+
+function showStars(rating) {
+    let stars = $('#starList i');
+
+    for (let i = 0; i < 5; i++) {
+        $(stars[i]).removeClass('disabled');
+    }
+    for (let i = rating; i < 5; i++) {
+        $(stars[i]).addClass('disabled');
+    }
+    let starNames = ['Please select rating', 'Wost', 'Bad', 'Ok', 'Good', 'Outstanding'];
+    $('#starName').html(starNames[rating]);
+}
 
 function showReply(parentCommentId, fullname) {
     $('#closebtn').show();
     $('#reply').html('reply: ' + fullname);
     $('#parentCommentId').val(parentCommentId);
 }
+
 function removeReply() {
     $('#closebtn').hide();
     $('#reply').html('');
     $('#parentCommentId').val('');
 }
+
 // bat su kien them param vao url
 function selectParam(key, value, reset = false) {
     if (reset) {

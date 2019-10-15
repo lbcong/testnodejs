@@ -6,6 +6,7 @@ var categoriesController = require('../controllers/CategoriesController');
 var productsController = require('../controllers/ProductsController');
 var brandsController = require('../controllers/BrandsController');
 var colorsController = require('../controllers/ColorsController');
+var reviewsController = require('../controllers/ReviewsController');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
 
@@ -73,8 +74,13 @@ router.get('/:id', function (req, res, next) {
         .then(
             data => {
                 res.locals.product = data;
-                res.render('single-product', {title: 'single-product'});
+                return reviewsController.getUserReviewProduct(1,req.params.id)
+
             })
+        .then(review=>{
+            res.locals.userReview = review;
+            res.render('single-product', {title: 'single-product'});
+        })
         .catch(error => next(error));
 });
 
