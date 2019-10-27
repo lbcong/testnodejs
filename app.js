@@ -2,16 +2,14 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
-
-
 var app = express();
+
 //helper
 var helper = require('./helper/helper');
 // view engine setup
 var hbs = require('express-handlebars');
 var paginateHelper = require('express-handlebars-paginate');
 app.set('views', path.join(__dirname, 'views'));
-
 app.engine('hbs', hbs({
     extname: 'hbs',
     defaultLayout: 'layout',
@@ -24,6 +22,7 @@ app.engine('hbs', hbs({
     }
 }));
 app.set('view engine', 'hbs');
+
 // body parser
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -59,22 +58,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // setup router path
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
 var categoriesRouter = require('./routes/categories');
 var cartRouter = require('./routes/cart');
 var commentRouter = require('./routes/comment');
 var reviewRouter = require('./routes/review');
-var test = require('./routes/test');
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/categories', categoriesRouter);
 app.use('/carts', cartRouter);
 app.use('/comments', commentRouter);
 app.use('/reviews', reviewRouter);
-app.use('/test', test);
+
 
 
 // catch 404 and forward to error handler

@@ -20,12 +20,12 @@ helper.createStarList = (stars) => {
     return string;
 };
 
-helper.createStarVote=(vote)=>{
-    string=``;
-    for(var i=0;i<vote;i++){
+helper.createStarVote = (vote) => {
+    string = ``;
+    for (var i = 0; i < vote; i++) {
         string += '<i class="fa fa-star"></i>';
     }
-    for(;i<5;i++){
+    for (; i < 5; i++) {
         string += '<i class="fa fa-star disabled"></i>';
     }
 
