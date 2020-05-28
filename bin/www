@@ -12,8 +12,11 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '80');
+var port = normalizePort(process.env.PORT || 3000, () => { console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env); });
 app.set('port', port);
+
+
+console.log("Express1 server listening on port %d", port);
 
 /**
  * Create HTTP server.
