@@ -1,9 +1,9 @@
 {
     "development": {
-        "username": "gbkunjicrgdekr",
-        "password": "dbe42e80fed5bdd559df7b45b1537afce8e7aa9bcfc7de9633d15c6be79c4987",
-        "database": "dcbgarmq88aimd",
-        "host": "ec2-174-129-226-232.compute-1.amazonaws.com",
+        "username": "vqpksrzckcmdis",
+        "password": "b90ecd18c56c2742e7319bf8e8660dd6d82d63501480dc67e55a7d868f052965",
+        "database": "dcqe0fld28tjkv",
+        "host": "ec2-54-205-61-191.compute-1.amazonaws.com",
         "port": 5432,
         "dialect": "postgres",
         "dialectOptions": {
@@ -18,10 +18,10 @@
         "dialect": "postgres"
     },
     "production": {
-        "username": "gbkunjicrgdekr",
-        "password": "dbe42e80fed5bdd559df7b45b1537afce8e7aa9bcfc7de9633d15c6be79c4987",
-        "database": "dcbgarmq88aimd",
-        "host": "ec2-174-129-226-232.compute-1.amazonaws.com",
+        "username": "vqpksrzckcmdis",
+        "password": "b90ecd18c56c2742e7319bf8e8660dd6d82d63501480dc67e55a7d868f052965",
+        "database": "dcqe0fld28tjkv",
+        "host": "ec2-54-205-61-191.compute-1.amazonaws.com",
         "dialect": "postgres",
         "dialectOptions": {
             "ssl": true
