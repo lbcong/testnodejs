@@ -16,13 +16,14 @@ var port = normalizePort(process.env.PORT || 3000, () => { console.log("Express 
 app.set('port', port);
 
 
-console.log("Express1 server listening on port %d", port);
+
 
 /**
  * Create HTTP server.
  */
 
 var server = http.createServer(app);
+
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -31,6 +32,8 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error.hbs', onError);
 server.on('listening', onListening);
+
+console.log("Express1 server listening on port %d", port);
 
 /**
  * Normalize a port into a number, string, or false.
